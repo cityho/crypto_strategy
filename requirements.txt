@@ -1,0 +1,10 @@
+python-binance==1.0.34
+Django==5.2.9
+duckdb==1.4.3
+binance-historical-data==0.1.14
+pandas==2.3.3
+numba==0.63.1
+pandas-ta-classic==0.3.59
+pyarrow==22.0.0
+python-dotenv==1.2.1
+vectorbt==0.28.2
