@@ -17,4 +17,4 @@ if __name__ == "__main__":
     keyword = sys.argv[1] if len(sys.argv) > 1 else "12h"
     delete_files_by_keyword(keyword)
 
-# export PYTHONPATH=$(pwd) && src/data/remove_used_file.py 12h 와 같이 처리함.
+# export PYTHONPATH=$(pwd) && python src/data/remove_used_file.py 12h 와 같이 처리함.

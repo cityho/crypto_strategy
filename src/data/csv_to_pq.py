@@ -4,6 +4,7 @@ from collections import defaultdict
 from pathlib import Path
 
 
+from src.data.trim_data_file import _add_freq, _round_close_time
 from util import search_file_list, ENV
 import pandas as pd
 
@@ -40,6 +41,8 @@ def _create_pq_by_partition(df: pd.DataFrame, d: str, c: str) -> None:
             lambda x: datetime.fromtimestamp(x / 1000, tz=timezone.utc)
         )
     data = pd.concat([base, df]).drop_duplicates()
+    data = _add_freq(data)
+    data = _round_close_time(data)
 
     f_name = Path(f_name)
     f_name.parent.mkdir(parents=True, exist_ok=True)
@@ -87,4 +90,4 @@ if __name__ == "__main__":
         freq = "12h"
     run(start, end, freq)
 
-# export PYTHONPATH=$(pwd) && python src/data/csv_to_pq.py 20240101 20251231
+# export PYTHONPATH=$(pwd) && python src/data/csv_to_pq.py 20240101 20251231 4h
