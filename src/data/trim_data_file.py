@@ -8,6 +8,8 @@ from datetime import datetime
 import pandas as pd
 
 from src.helper.data_loader import DuckParquetStore
+from util import parse_argv_dates
+
 
 def _add_freq(df: pd.DataFrame) -> pd.DataFrame:
     td = df["close_time"] - df["open_time"]
@@ -48,8 +50,8 @@ def run(start, end, item_list):
 
 if __name__ == "__main__":
     # 원래는 이렇게 하면 안되는디
-    start = datetime.strptime(sys.argv[1], "%Y%m%d").date()
-    end = datetime.strptime(sys.argv[2], "%Y%m%d").date()
+    import sys
+    start, end = parse_argv_dates(sys.argv[1], sys.argv[2])
 
     items = [
         'close', 'count', 'high', 'low', 'open',

@@ -1,5 +1,8 @@
 import os
 import re
+from datetime import datetime, date
+from typing import Tuple
+
 import logging
 from enum import Enum
 from pathlib import Path
@@ -98,6 +101,14 @@ def get_logger(
 
     _LOGGERS[name] = logger
     return logger
+
+
+def parse_argv_dates(start_arg: str, end_arg: str) -> Tuple[date, date]:
+    start = datetime.strptime(start_arg, "%Y%m%d").date()
+    end = datetime.strptime(end_arg, "%Y%m%d").date()
+    if start > end:
+        raise ValueError("start date must be <= end date")
+    return start, end
 
 if __name__ == "__main__":
     print(BinanceClient().client)

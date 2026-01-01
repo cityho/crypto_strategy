@@ -106,7 +106,7 @@ class DuckParquetStore:
         order = f"ORDER BY {', '.join(self.join_keys)}" if order_by_keys and self.join_keys else ""
 
         sql = f"""
-        SELECT {cols}
+        SELECT {cols} EXCLUDE (half_open_interval)
         FROM parquet_scan({paths})
         {where}
         {order}
@@ -127,7 +127,7 @@ def set_index_of(df, freq):
     df["freq"] = freq
     df["open_time"] = pd.to_datetime(df["open_time"])
 
-    for c in ["freq", "close_time"]:
+    for c in ["freq", "close_time", "__index_level_0__"]:
         del df[c]
 
     df = df.set_index("open_time")
